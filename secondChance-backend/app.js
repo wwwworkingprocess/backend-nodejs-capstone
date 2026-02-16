@@ -7,6 +7,7 @@ const pinoLogger = require('./logger');
 const connectToDatabase = require('./models/db');
 const {loadData} = require("./util/import-mongo/index");
 
+const secondChanceItemsRoutes = require('./routes/secondChanceItemsRoutes');
 
 const app = express();
 app.use("*",cors());
@@ -43,7 +44,7 @@ app.use(pinoHttp({ logger }));
 //{{insert code here}}
 
 // Items API Task 2: add the secondChanceItemsRoutes to the server by using the app.use() method.
-//{{insert code here}}
+app.use('/api/secondchance/items', secondChanceItemsRoutes);
 
 // Search API Task 2: add the searchRoutes to the server by using the app.use() method.
 //{{insert code here}}
