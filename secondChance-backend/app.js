@@ -6,7 +6,7 @@ const pinoLogger = require('./logger')
 const path = require('path')
 
 const connectToDatabase = require('./models/db')
-const {loadData} = require('./util/import-mongo/index')
+const { loadData } = require('./util/import-mongo/index')
 loadData()
 
 const app = express()
