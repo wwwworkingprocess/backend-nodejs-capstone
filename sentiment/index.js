@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require('express')
-const axios = require('axios')
 const logger = require('./logger')
 const expressPino = require('express-pino-logger')({ logger })
 // Task 1: import the natural library
@@ -40,7 +39,7 @@ app.post('/sentiment', async (req, res) => {
     // If the score is between 0 and 0.33, it should be neutral
     // Otherwise, the sentiment should be positive
     if (analysisResult < 0) sentiment = 'negative'
-    else if (analysisResult >= 0 && score < 0.33) sentiment = 'neutral'
+    else if (analysisResult >= 0 && analysisResult < 0.33) sentiment = 'neutral'
     else sentiment = 'positive'
 
     // Logging the result
@@ -49,7 +48,7 @@ app.post('/sentiment', async (req, res) => {
     // Task 6: send a status code of 200 with both sentiment score and the sentiment txt in the format { sentimentScore: analysisResult, sentiment: sentiment }
     res
       .status(200)
-      .json({ sentimentScore: analysisResult, sentiment: sentiment })
+      .json({ sentimentScore: analysisResult, sentiment })
   } catch (error) {
     logger.error(`Error performing sentiment analysis: ${error}`)
     // Task 7: if there is an error, return a HTTP code of 500 and the json {'message': 'Error performing sentiment analysis'}
