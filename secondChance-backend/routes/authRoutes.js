@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       password: hash,
-      createdAt: new Date(),
+      createdAt: new Date()
     })
 
     // Task 6: Create JWT authentication if passwords match with user._id as payload
@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
 
     // Task 4: Check if the password matches the encrypted password and send appropriate message on mismatch
     if (dbUser) {
-      let result = await bcryptjs.compare(req.body.password, dbUser.password)
+      const result = await bcryptjs.compare(req.body.password, dbUser.password)
 
       if (!result) {
         logger.error('Passwords do not match')
@@ -81,7 +81,7 @@ router.post('/login', async (req, res) => {
       const userEmail = dbUser.email
 
       // Task 6: Create JWT authentication if passwords match with user._id as payload
-      let payload = { user: { id: dbUser._id.toString() } }
+      const payload = { user: { id: dbUser._id.toString() } }
       const authtoken = jwt.sign(payload, JWT_SECRET)
 
       logger.info('User logged in successfully')
@@ -98,7 +98,7 @@ router.post('/login', async (req, res) => {
 })
 
 // Task 1: Use the `body`,`validationResult` from `express-validator` for input validation
-const { body, validationResult } = require('express-validator')
+const { validationResult } = require('express-validator')
 
 router.put('/update', async (req, res) => {
   // Task 2: Validate the input using `validationResult` and return an appropriate message if you detect an error
@@ -137,7 +137,7 @@ router.put('/update', async (req, res) => {
     const updatedUser = await collection.findOneAndUpdate(
       { email },
       { $set: existingUser },
-      { returnDocument: 'after' },
+      { returnDocument: 'after' }
     )
 
     // Task 7: Create JWT authentication with `user._id` as a payload using the secret key from the .env file
