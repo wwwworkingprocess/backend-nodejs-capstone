@@ -3,9 +3,11 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const pinoLogger = require('./logger')
+const path = require('path')
 
 const connectToDatabase = require('./models/db')
-// const {loadData} = require('./util/import-mongo/index')
+const {loadData} = require('./util/import-mongo/index')
+loadData()
 
 const app = express()
 app.use('*', cors())
@@ -32,6 +34,7 @@ const pinoHttp = require('pino-http')
 const logger = require('./logger')
 
 app.use(pinoHttp({ logger }))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Use Routes
 // authRoutes Step 2: add the authRoutes and to the server by using the app.use() method.
